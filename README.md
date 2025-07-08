@@ -90,8 +90,71 @@ CREATE TABLE transactions (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_transaction_account FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
+==================================================================================================================================
+Date:- 08-07-2025
+=================
+
+CREATE TABLE user_profile (
+    userProfileId SERIAL PRIMARY KEY,
+    firstName VARCHAR(255),
+    lastName VARCHAR(255),
+    gender VARCHAR(255),
+    address VARCHAR(255),
+    occupation VARCHAR(255),
+    martialStatus VARCHAR(255),
+    nationality VARCHAR(255)
+);
+
+CREATE TABLE users_detail (
+    userid BIGINT PRIMARY KEY,
+    emailid VARCHAR(255),
+    contact_no VARCHAR(255),
+    authid VARCHAR(255),
+    identificationnumber VARCHAR(255),
+    creationon DATE,
+    status VARCHAR(50),
+    userprofileid INT,
+    FOREIGN KEY (userprofileid) REFERENCES user_profile(userprofileid)
+);
+
+
+CREATE TABLE account_detail (
+    accountid BIGINT PRIMARY KEY,
+    accountnumber VARCHAR(255) NOT NULL,
+    accounttype VARCHAR(50) NOT NULL,
+    accountstatus VARCHAR(50) NOT NULL,
+    openingdate DATE,
+    availablebalance DECIMAL(19, 2),
+    userid BIGINT
+);
 
 
 
+CREATE TABLE sequence (
+    sequence_id BIGSERIAL PRIMARY KEY,
+    account_number BIGINT
+);
 
 
+CREATE TABLE transaction (
+    transaction_id BIGSERIAL PRIMARY KEY,
+    reference_id VARCHAR(255),
+    account_id VARCHAR(255),
+    transaction_type VARCHAR(50),
+    amount NUMERIC(19, 2),
+    transaction_date TIMESTAMP,
+    status VARCHAR(50),
+    comments VARCHAR(255)
+);
+
+
+CREATE TABLE fund_transfer (
+    fund_transfer_id BIGSERIAL PRIMARY KEY,
+    transaction_reference VARCHAR(255),
+    from_account VARCHAR(255),
+    to_account VARCHAR(255),
+    amount NUMERIC(19, 2),
+    status VARCHAR(50),
+    transfer_type VARCHAR(50),
+    transferred_on TIMESTAMP
+);
